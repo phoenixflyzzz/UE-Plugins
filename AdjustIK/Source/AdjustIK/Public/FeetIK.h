@@ -25,11 +25,7 @@ public:
 	class ACharacter* Character;
 
 	float CapsuleHalfHeight;
-	float CapsuleHalfHeightCrouched;
 	float CapsuleRadius;
-
-	bool bHitL = true;
-	bool bHitR = true;
 
 	UPROPERTY(EditAnywhere, Category = "FeetIK", meta = (AllowPrivateAccess = "true"))
 	float TraceDistance = 60.f;
