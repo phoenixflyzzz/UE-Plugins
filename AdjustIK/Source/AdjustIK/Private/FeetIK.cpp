@@ -47,13 +47,13 @@ void UFeetIK::AdjustIK()
 	}
 	else
 	{
-		if (TraceHipOffset > -20.f)
+		if (TraceHipOffset > -10.f && Character->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0)
+		{
+			PelvisOffset.Z = FMath::FInterpTo(PelvisOffset.Z, TraceHipOffset, GetWorld()->GetDeltaSeconds(), 5.f);
+		}
+		else if (TraceHipOffset > -20.f)
 		{
 			PelvisOffset.Z = FMath::FInterpTo(PelvisOffset.Z, TraceHipOffset + 10.f, GetWorld()->GetDeltaSeconds(), 5.f);
-		}
-		else if (TraceHipOffset > -30.f)
-		{
-			PelvisOffset.Z = FMath::FInterpTo(PelvisOffset.Z, TraceHipOffset + 20.f, GetWorld()->GetDeltaSeconds(), 5.f);
 		}
 		else if (TraceHipOffset > -40.f)
 		{
