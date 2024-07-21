@@ -47,7 +47,11 @@ void UFeetIK::AdjustIK()
 	}
 	else
 	{
-		if (TraceHipOffset > -20.f)
+		if (TraceHipOffset > -10.f && Character->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0)
+		{
+			PelvisOffset.Z = FMath::FInterpTo(PelvisOffset.Z, TraceHipOffset, GetWorld()->GetDeltaSeconds(), 5.f);
+		}
+		else if (TraceHipOffset > -20.f)
 		{
 			PelvisOffset.Z = FMath::FInterpTo(PelvisOffset.Z, TraceHipOffset + 10.f, GetWorld()->GetDeltaSeconds(), 5.f);
 		}
@@ -99,7 +103,7 @@ std::tuple<float, FRotator> UFeetIK::TraceIK(FName InSocketName, float HalfHeigh
 	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionQueryParams);
 	//DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 0.5f);
 
-	float TraceOffset = bHit ? HalfHeight / 2 - HitResult.Distance + SCaleOffset : 0.f;	// ��ֵ
+	float TraceOffset = bHit ? HalfHeight / 2 - HitResult.Distance + SCaleOffset : 0.f;	// ¸ºÖµ
 
 	if (InSocketName == "foot_l")
 	{
