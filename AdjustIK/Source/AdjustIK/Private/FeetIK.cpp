@@ -19,7 +19,6 @@ void UFeetIK::BeginPlay()
 	{
 		CapsuleHalfHeight = Character->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 		CapsuleHalfHeightCrouched = Character->GetCharacterMovement()->CrouchedHalfHeight;
-		CapsuleRadius = Character->GetCapsuleComponent()->GetScaledCapsuleRadius();
 	}
 }
 
@@ -99,42 +98,7 @@ std::tuple<float, FRotator> UFeetIK::TraceIK(FName InSocketName, float HalfHeigh
 	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionQueryParams);
 	//DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 0.5f);
 
-	float TraceOffset = bHit ? HalfHeight / 2 - HitResult.Distance + SCaleOffset : 0.f;	// ��ֵ
-
-	if (InSocketName == "foot_l")
-	{
-		bHitL = bHit;
-	}
-	else
-	{
-		bHitR = bHit;
-	}
-
-	if (!bHitL && !bHitR)
-	{
-		Character->GetCapsuleComponent()->SetCapsuleRadius(CapsuleRadius / 4);
-	}
-	else if (!bHitL || !bHitR)
-	{
-		FHitResult HitResultMid;
-		FVector TargetLoc = FVector(ActorLoc.X, ActorLoc.Y, ActorLoc.Z - HalfHeight - TraceDistance);
-		bool bHitMid = GetWorld()->LineTraceSingleByChannel(
-			HitResult,
-			ActorLoc,
-			TargetLoc,
-			ECollisionChannel::ECC_Visibility,
-			CollisionQueryParams
-		);
-		//DrawDebugLine(GetWorld(), ActorLoc, TargetLoc, FColor::Blue, false, 0.5f);
-		if (!bHitMid)
-		{
-			Character->GetCapsuleComponent()->SetCapsuleRadius(CapsuleRadius / 4);
-		}
-	}
-	else
-	{
-		Character->GetCapsuleComponent()->SetCapsuleRadius(CapsuleRadius);
-	}
+	float TraceOffset = bHit ? HalfHeight / 2 - HitResult.Distance + SCaleOffset : 0.f;	// ¸ºÖµ
 
 	FRotator TraceRotation;
 	TraceRotation.Roll = FMath::Atan2(HitResult.Normal.Y, HitResult.Normal.Z) * 50.f;
