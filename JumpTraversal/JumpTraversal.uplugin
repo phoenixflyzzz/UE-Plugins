@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "JumpTraversal",
+	"Description": "a plugin about jump vault climb mantle",
+	"Category": "Other",
+	"CreatedBy": "allintome",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "JumpTraversal",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
